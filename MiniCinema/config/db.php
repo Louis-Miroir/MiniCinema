@@ -1,9 +1,9 @@
 <?php
 
-$host = 'biis7bmbazpfdykocedw-mysql.services.clever-cloud.com';
-$dbname = 'biis7bmbazpfdykocedw';
-$username = 'ufermxwrotlx55js5';
-$password = 'FF36CsJCF9YboiPa6i6E';
+$host = '127.0.0.1';
+$dbname = 'MiniCinema';
+$username = 'root';
+$password = ''; // pas de mot de passe par défaut sur WAMP
 $port = 3306;
 
 try {
