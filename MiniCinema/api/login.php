@@ -1,28 +1,31 @@
 <?php
+session_start();
 require_once '../config/db.php';
-header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['email']) && isset($_POST['password'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Requête pour retrouver l'utilisateur
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && password_verify($password, $user['password'])) {
+        // Stocker les infos en session
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
 
 
-        // Récupération de l'utilisateur
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->execute([$email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($user && password_verify($password, $user['password'])) {
-            echo json_encode(["message" => "Connexion réussie !", "user_id" => $user['id']]);
-        } else {
-            echo json_encode(["error" => "Identifiants incorrects."]);
-        }
+        // Redirection vers la homepage
+        header('Location: ../public/index.php');
+        exit;
     } else {
-        echo json_encode(["error" => "Paramètres manquants."]);
+        // Échec de connexion, redirection vers login avec message
+        header('Location: ../login.php?error=1');
+        exit;
     }
-} else {
-    echo json_encode(["error" => "Méthode non autorisée."]);
 }
 ?>
-<?php
+
+
