@@ -3,11 +3,11 @@ require_once '../config/db.php';
 header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents("php://input"), true);
+    if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['username'])) {
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    if (isset($data['email']) && isset($data['password'])) {
-        $email = $data['email'];
-        $password = password_hash($data['password'], PASSWORD_DEFAULT);
 
         $stmt = $pdo->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
         $stmt->execute([$email, $password]);

@@ -3,11 +3,10 @@ require_once '../config/db.php';
 header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents("php://input"), true);
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-    if (isset($data['email']) && isset($data['password'])) {
-        $email = $data['email'];
-        $password = $data['password'];
 
         // Récupération de l'utilisateur
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
