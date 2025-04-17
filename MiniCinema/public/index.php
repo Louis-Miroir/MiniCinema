@@ -52,7 +52,7 @@ $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="categorie_drame.php">Drame</a>
         </div>
     </div>
-    
+    <a href="mon_panier.php">🛒 Mon Panier</a>
     <?php if (!isset($_SESSION['user_id'])): ?>
         <a href="register.php">Créer un compte</a> |
         <a href="login.php">Connexion</a>
