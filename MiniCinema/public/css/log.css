@@ -49,3 +49,15 @@ button {
 button:hover {
     background-color: #e63e3e;
 }
+
+.message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 12px;
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: bold;
+}
